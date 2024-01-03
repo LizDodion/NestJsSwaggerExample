@@ -1,0 +1,21 @@
+generator client {
+  provider      = "prisma-client-js"
+  output        = "./prisma-client"
+  binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x", "linux-musl-openssl-3.0.x"]
+}
+
+generator json {
+  provider  = "prisma-json-types-generator"
+  namespace = "PrismaJson"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "../../docs/db/schema.md"
+  mmdcPath = "node_modules/.bin"
+}

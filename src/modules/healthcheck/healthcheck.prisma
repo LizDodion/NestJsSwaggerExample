@@ -1,0 +1,7 @@
+// simple table used for healthcheck between app and database
+model Healthcheck {
+  id        String   @id
+  message   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

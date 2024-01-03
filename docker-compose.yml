@@ -1,0 +1,70 @@
+version: '3'
+
+services:
+  api-core:
+    build:
+      context: .
+      dockerfile: ./apps/api-core/Dockerfile
+      tags:
+        - 'latest'
+    restart: always
+    volumes:
+      - ~/.aws:/home/nestjs/.aws/
+      - ./apps/api-core/src:/home/nestjs/app/apps/api-core/src
+    environment:
+      - DATABASE_URL=postgresql://apicoreuser:apicorepassword@api-core-db:5432/apicoredb?schema=public
+      - AWS_CONFIG_FILE=/home/nestjs/.aws/config
+    ports:
+      - 3080:3080
+      - 9229:9229
+    env_file:
+      - .env.common
+      - .env.local
+      - .env.local.me # local personal env vars - run make dev-config-local if docker error
+    networks:
+      - elinks_backend_app_network
+    depends_on:
+      api-core-db:
+        condition: service_healthy
+      api-core-prisma-configure:
+        condition: service_completed_successfully
+    command: ['pnpm', 'start:debug']
+
+
+  api-core-db:
+    image: postgres:15.3
+    volumes:
+      - ./.vols/api-core-db:/var/lib/postgresql/data
+      - ./apps/api-core/docker/postgres_init.sql:/docker-entrypoint-initdb.d/postgres_init.sql
+    environment:
+      POSTGRES_DB: apicoredb
+      POSTGRES_USER: apicoreuser
+      POSTGRES_PASSWORD: apicorepassword
+    networks:
+      - elinks_backend_app_network
+    ports:
+      - 25432:5432
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api-core-prisma-configure:
+    build:
+      context: .
+      dockerfile: ./apps/api-core/Dockerfile
+    environment:
+      - DATABASE_URL=postgresql://apicoreuser:apicorepassword@api-core-db:5432/apicoredb?schema=public
+    command: ['pnpm', 'prisma:deploy:production']
+    networks:
+      - elinks_backend_app_network
+    depends_on:
+      api-core-db:
+        condition: service_healthy
+
+# Define a network, which allows containers to communicate
+# with each other, by using their container name as a hostname
+networks:
+  elinks_backend_app_network:
+    driver: bridge

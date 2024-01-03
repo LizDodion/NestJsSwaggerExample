@@ -19,3 +19,9 @@ npm-debug.log
 
 # dist
 /dist
+
+src/generated/*
+src/generated/prisma-client/
+!src/generated/migrations
+
+.vols

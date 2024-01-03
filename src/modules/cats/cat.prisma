@@ -1,0 +1,9 @@
+import { Owner } from "../owner/owner"
+model Cat {
+  id      String  @id @default(uuid())
+  name    String
+  age     Int
+  breed   String
+  owner   Owner?  @relation(fields: [ownerId], references: [id])
+  ownerId String?
+}

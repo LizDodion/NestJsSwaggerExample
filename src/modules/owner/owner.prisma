@@ -1,0 +1,9 @@
+import { Cat } from "../cats/cat"
+import { Dog } from "../dogs/dog"
+model Owner {
+  id   String @id @default(uuid())
+  cats Cat[]
+  dogs Dog[]
+  name String
+  age  Int
+}

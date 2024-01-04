@@ -1,20 +1,20 @@
 import { Injectable } from "@nestjs/common";
 import { CreateCatDto } from "./dto/create-cat.dto";
-import { CatEntity } from "./entities/cat.entity";
+import { CatsRepository } from "./repositories/cats.repository";
+import { CatResponse } from "@api-core/modules/cats/entities/cat.response";
 @Injectable()
 export class CatsService {
-  private readonly cats: CatEntity[] = [];
+  constructor(private readonly catRepository: CatsRepository) {}
 
-  create(cat: CreateCatDto): CatEntity {
-    this.cats.push(cat);
-    return cat;
+  create(cat: CreateCatDto): Promise<CatResponse> {
+    return this.catRepository.createCat(cat);
   }
 
-  findOne(id: number): CatEntity {
-    return this.cats[id];
+  findOne(id: string): Promise<CatResponse> {
+    return this.catRepository.findOne(id);
   }
 
-  findMany(): CatEntity[] {
-    return this.cats;
+  findMany(): Promise<CatResponse[]> {
+    return this.catRepository.findMany();
   }
 }

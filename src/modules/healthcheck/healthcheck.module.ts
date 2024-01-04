@@ -6,7 +6,7 @@ import { HealthcheckController } from "./controllers/healthcheck.controller";
 
 import { HealthcheckService } from "./services/healthcheck.service";
 import { HealthcheckListener } from "./listeners/healthcheck.listener";
-import { ElinksAdminModule } from "@api-core/modules/elinksAdmin/pyneaAdmin.module";
+import { ElinksAdminModule } from "@api-core/modules/admin/elinksAdmin.module";
 
 @Module({
   imports: [PrismaModule, ElinksAdminModule],

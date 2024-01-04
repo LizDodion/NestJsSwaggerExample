@@ -1,20 +1,20 @@
 import { Injectable } from "@nestjs/common";
 import { CreateDogDto } from "./dto/create-dog.dto";
-import { DogEntity } from "./entities/dog.entity";
-
+import { DogsRepository } from "./repositories/dogs.repository";
+import { DogResponse } from "@api-core/modules/dogs/entities/dog.response";
 @Injectable()
 export class DogsService {
-  private readonly dogs: DogEntity[] = [];
+  constructor(private readonly dogRepository: DogsRepository) {}
 
-  create(dog: CreateDogDto): DogEntity {
-    this.dogs.push(dog);
-    return dog;
+  create(dog: CreateDogDto): Promise<DogResponse> {
+    return this.dogRepository.createDog(dog);
   }
 
-  findOne(id: number): DogEntity {
-    return this.dogs[id];
+  findOne(id: string): Promise<DogResponse> {
+    return this.dogRepository.findOne(id);
   }
-  findMany(): DogEntity[] {
-    return this.dogs;
+
+  findMany(): Promise<DogResponse[]> {
+    return this.dogRepository.findMany();
   }
 }

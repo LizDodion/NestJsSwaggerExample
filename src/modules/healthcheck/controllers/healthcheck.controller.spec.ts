@@ -1,5 +1,5 @@
 import { mock } from "jest-mock-extended";
-import { RestrictedByAdminToken } from "@api-core/modules/elinksAdmin/guards/restrictedByAdminToken.guard";
+import { RestrictedByAdminToken } from "@api-core/modules/admin/guards/restrictedByAdminToken.guard";
 import { HealthcheckService } from "../services/healthcheck.service";
 import { HealthcheckController } from "./healthcheck.controller";
 

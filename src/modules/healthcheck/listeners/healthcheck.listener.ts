@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { LoggerService } from "../../logger/logger.service";
 import { HealthCheckPingEvent } from "../interfaces/healthCheckPingEvent.interface";
 import { HealthCheckEvents } from "./healthcheck.event";
-import { OnElinksEvent } from "@api-core/modules/common/decorators/onPyneaEvent.decorator";
+import { OnElinksEvent } from "@api-core/modules/common/decorators/onElinksEvent.decorator";
 
 @Injectable()
 export class HealthcheckListener {

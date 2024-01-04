@@ -1,7 +1,7 @@
 import { SanitiseResponse } from "@api-core/modules/common/decorators/sanitiseResponse.decorator";
 import { Controller, Injectable } from "@nestjs/common";
 import { Expose } from "class-transformer";
-import { transformToInstance } from "@elinks/utils";
+import { transformToInstance } from "@api-core/modules/common/utils/transformToInstance";
 
 jest.mock("@elinks/utils", () => {
   return {
@@ -20,8 +20,6 @@ describe("SanitiseResponseOutput", () => {
 
     @Injectable()
     class MyService {
-      constructor() {}
-
       @SanitiseResponse(test)
       getData(): { some: string; shouldBeRemoved: number } {
         const data = { some: "someText", shouldBeRemoved: 1 };

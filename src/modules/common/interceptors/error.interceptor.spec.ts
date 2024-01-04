@@ -155,7 +155,6 @@ describe("ErrorInterceptor", () => {
   it("should fall back to an internal server error", (done) => {
     mockCallHandler = mock<CallHandler>({
       handle: () => {
-        //eslint-disable-next-line @elinks/elinks/no-native-error
         return throwError(() => new Error("Big Oof"));
       },
     } as any);

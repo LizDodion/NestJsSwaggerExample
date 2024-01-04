@@ -6,6 +6,7 @@ const pinoLogger = new PinoLogger({
     enabled: false,
   },
 });
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const logger = new Logger(pinoLogger, {});
-export const loggerService = new LoggerService();
+export const loggerService = new LoggerService(logger);
 // logger

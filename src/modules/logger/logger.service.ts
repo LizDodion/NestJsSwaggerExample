@@ -6,7 +6,7 @@ import { SanitiseResponse } from "@api-core/modules/common/decorators/sanitiseRe
 export class LoggerService implements ILogger {
   private requestId: string;
 
-  // constructor() {} // private readonly logger: Logger
+  constructor(private readonly logger: Logger) {}
 
   @SanitiseResponse(String)
   getRequestId(): string {
@@ -18,43 +18,36 @@ export class LoggerService implements ILogger {
   }
 
   error(message: any, context?: any): void {
-    console.log("asd");
-    // this.logger.error(message, context);
+    this.logger.error(message, context);
   }
 
   log(message: any, context?: any): void {
-    console.log("asd");
-    // this.logger.log(message, context);
+    this.logger.log(message, context);
   }
 
   prismaLog(message: any, context?: any): void {
-    console.log("asd");
-    // this.logger.log(message, {
-    //   ...context,
-    //   requestId: this.getRequestId(),
-    // });
+    this.logger.log(message, {
+      ...context,
+      requestId: this.getRequestId(),
+    });
   }
 
   prismaError(message: any, context?: any): void {
-    console.log("asd");
-    // this.logger.error(message, {
-    //   ...context,
-    //   requestId: this.getRequestId(),
-    // });
+    this.logger.error(message, {
+      ...context,
+      requestId: this.getRequestId(),
+    });
   }
 
   warn(message: any, context?: any): void {
-    console.log("asd");
-    // this.logger.warn(message, context);
+    this.logger.warn(message, context);
   }
 
   debug(message: any, context?: any): void {
-    console.log("asd");
-    // this.logger.debug(message, context);
+    this.logger.debug(message, context);
   }
 
   verbose(message: any, context?: any): void {
-    console.log("asd");
-    // this.logger.verbose(message, context);
+    this.logger.verbose(message, context);
   }
 }

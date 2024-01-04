@@ -7,6 +7,12 @@
 ### Setup DB
 `npm run setup:db`
 
+### Run generate
+`npm run prisma:merge` and `npm run prisma:generate`
+
+### Run migrations
+`npm run prisma:migrate`
+
 ### Running the api
 `npm run start:dev`
 

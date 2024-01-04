@@ -19,6 +19,7 @@ export class OwnsResourceGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
+    // eslint-disable-next-line no-restricted-syntax
     console.log("request", request);
 
     const userId = (request as any).user.userId;

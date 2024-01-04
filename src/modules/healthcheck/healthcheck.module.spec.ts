@@ -1,6 +1,6 @@
 import { PrismaModule } from "@api-core/modules/prisma/prisma.module";
 import { ConfigService } from "@api-core/modules/config/config.service";
-import { ElinksAdminModule } from "@api-core/modules/elinksAdmin/elinksAdmin.module";
+import { ElinksAdminModule } from "@api-core/modules/admin/elinksAdmin.module";
 import { ResolverLoggingInterceptor } from "../common/interceptors/resolverLogging.interceptor";
 import { HealthcheckService } from "./services/healthcheck.service";
 import { HealthcheckResolver } from "./resolvers/healthcheck.resolver";

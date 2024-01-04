@@ -1,4 +1,4 @@
-/* eslint-disable @elinks/elinks/no-native-fetch */
+// /* eslint-disable @elinks/elinks/no-native-fetch */
 import { FailedDependencyException } from "../exceptions/failedDependency.exception";
 
 async function elinksFetch<T = object>(

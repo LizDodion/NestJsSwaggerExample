@@ -3,8 +3,7 @@ import {
   SlackWebhookClientSendParams,
   SlackWebhookSendResponse,
 } from "../interfaces/slackWebhookClient.interface";
-
-import elinksFetch from "@api-core/modules/common/utils/pyneaFetch";
+import elinksFetch from "@api-core/modules/common/utils/elinksFetch";
 
 export class SlackWebookClient implements SlackWebhookClient {
   constructor(private readonly endpoint: string) {}

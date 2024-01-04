@@ -14,31 +14,6 @@ export class ResolverLoggingInterceptor implements NestInterceptor {
   constructor(private config: ConfigService, private logger: LoggerService) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    //     if (this.isGQLHttpExecutionContext(context)) {
-    //       // It is a GqlExecutionContext
-    //       this.logger.log("✅ graphql received", {
-    //         ctx: {
-    //           mode: context.getType(),
-    //           module: context.getClass().name.replace(/Resolver$/, ""),
-    //           resolver: context.getHandler().name,
-    //           // is it a query or resolver?
-    //           type: context.getArgs()[2].__currentQuery.startsWith("mutation")
-    //             ? "mutation"
-    //             : "query",
-    //         },
-    //       });
-    //
-    //       if (this.config.isGraphqlQueryLogEnabled) {
-    //         this.logger.log(
-    //           `🧪 gql: ${context.getArgs()[2].__currentQuery.replace(/\n\s*$/, "")}
-    // ✏️ gqlVariables: ${JSON.stringify(
-    //             context.getArgs()[3].variableValues,
-    //             null,
-    //             2
-    //           )}`
-    //         );
-    //       }
-    //     } else {
     const request = context.switchToHttp().getRequest();
     this.logger.log("✅ controller request received", {
       ctx: {
@@ -51,20 +26,15 @@ export class ResolverLoggingInterceptor implements NestInterceptor {
     });
     if (this.config.isGraphqlQueryLogEnabled) {
       this.logger.log(
-        `🧪 controller args: ${JSON.stringify(context.getArgs()[0].raw.query)}`
+        `🧪 controller info
+args: ${JSON.stringify(request.query, null, 2)}
+body: ${JSON.stringify(request.body, null, 2)}
+params: ${JSON.stringify(request.params, null, 2)}`
       );
     }
     // }
     // Always call next.handle() for both types of context
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     return next.handle().pipe(tap(() => {}));
   }
-
-  // private isGQLHttpExecutionContext(
-  //   context: ExecutionContext
-  // ): context is GqlExecutionContext {
-  //   return (
-  //     "getType" in context &&
-  //     (context.getType() as GqlContextType) === "graphql"
-  //   );
-  // }
 }
